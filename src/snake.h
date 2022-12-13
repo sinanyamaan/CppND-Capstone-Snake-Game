@@ -3,6 +3,7 @@
 
 #include <vector>
 #include "SDL.h"
+#include "food.h"
 
 class Snake
 {
@@ -37,7 +38,7 @@ public:
 
 protected:
   void UpdateHead();
-  void UpdateBody(SDL_Point &current_cell, SDL_Point &prev_cell);
+  virtual void UpdateBody(SDL_Point &current_cell, SDL_Point &prev_cell);
 
   bool growing{false};
   int grow_count{1};
@@ -48,7 +49,11 @@ protected:
 class EnemySnake : public Snake
 {
 public:
-  EnemySnake(SDL_Point const &food);
+  EnemySnake(Food const &food);
+  void FindFood(Food const &food);
+
+private:
+  void UpdateBody(SDL_Point &current_cell, SDL_Point &prev_cell);
 };
 
 #endif

@@ -1,6 +1,7 @@
 #include "snake.h"
 #include <cmath>
 #include <iostream>
+#include <algorithm>
 
 void Snake::Update()
 {
@@ -69,6 +70,7 @@ void Snake::UpdateBody(SDL_Point &current_head_cell, SDL_Point &prev_head_cell)
   {
     if (current_head_cell.x == item.x && current_head_cell.y == item.y)
     {
+      std::cout << "You tried to take a bite of yourself." << std::endl;
       alive = false;
     }
   }
@@ -97,7 +99,7 @@ bool Snake::SnakeCell(int x, int y)
   return false;
 }
 
-EnemySnake::EnemySnake(SDL_Point const &food)
+EnemySnake::EnemySnake(Food const &food)
 {
   int x_diff = grid_width - food.x;
   int y_diff = grid_height - food.y;
@@ -113,5 +115,43 @@ EnemySnake::EnemySnake(SDL_Point const &food)
     head_x = food.x;
     head_y = y_diff < grid_height / 2 ? 0 : grid_height - 1;
     direction = y_diff < grid_height / 2 ? Direction::kDown : Direction::kUp;
+  }
+}
+
+void EnemySnake::FindFood(Food const &food)
+{
+  if ((int)head_x == food.x && (direction == Direction::kLeft || direction == Direction::kRight))
+  {
+    direction = food.y - head_y < 0 ^ abs(food.y - head_y) < grid_height / 2 ? Direction::kDown : Direction::kUp;
+  }
+  if ((int)head_y == food.y && (direction == Direction::kUp || direction == Direction::kDown))
+  {
+    direction = food.x - head_x < 0 ^ abs(food.x - head_x) < grid_width / 2 ? Direction::kRight : Direction::kLeft;
+  }
+}
+
+void EnemySnake::UpdateBody(SDL_Point &current_head_cell, SDL_Point &prev_head_cell)
+{
+  body.push_back(prev_head_cell);
+
+  if (!growing)
+  {
+    body.erase(body.begin());
+  }
+  else
+  {
+    grow_count--;
+    growing = grow_count == 0 ? false : true;
+    size++;
+  }
+
+  // Check if the enemy has died.
+  for (auto const &item : body)
+  {
+    if (current_head_cell.x == item.x && current_head_cell.y == item.y)
+    {
+      std::cout << "Enemy gone crazy. You won!" << std::endl;
+      alive = false;
+    }
   }
 }
