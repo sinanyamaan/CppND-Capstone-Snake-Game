@@ -6,7 +6,27 @@ This is a starter repo for the Capstone project in the [Udacity C++ Nanodegree P
 
 The Capstone Project gives you a chance to integrate what you've learned throughout this program. This project will become an important part of your portfolio to share with current and future colleagues and employers.
 
-In this project, you can build your own C++ application or extend this Snake game, following the principles you have learned throughout this Nanodegree Program. This project will demonstrate that you can independently create applications using a wide range of C++ features.
+In this project, I added these features to accomplish the project rubric requirements:
+* [x] Added an enemy in the game as an extra feature.
+* [x] Loops, Functions, I/O
+  * [x] Using control structures and organizing the code in functions.
+  * [x] Accepting input from the user.
+* [x] Object Oriented Programming
+  * [x] Using object oriented programming techniques.
+  * [x] Using appropriate access specifiers for members.
+  * [x] Using member initialization lists.
+  * [x] Member data that is subject to an invariant is hidden from the user.
+  * [x] Classes follow an appropriate inheritance hierarchy.
+  * [x] Overriding a virtual base class function.
+* [x] Memory Management
+  * [x] Using RAII where appropriate.
+  * [x] Smart pointers used instead of raw pointers.
+
+## Rules of the Game
+  * If enemy snake bites the player snake from its tail, player snake will get short.
+  * If player snake touches the enemy snake, the player snake will die.
+  * When player eats a food, gets a point. But the only way to win the game is staying alive before the enemy takes a bite itself!
+
 
 ## Dependencies for Running Locally
 * cmake >= 3.7
