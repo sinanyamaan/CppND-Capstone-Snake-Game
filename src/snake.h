@@ -3,7 +3,6 @@
 
 #include <vector>
 #include "SDL.h"
-#include "food.h"
 
 class Snake
 {
@@ -49,11 +48,11 @@ protected:
 class EnemySnake : public Snake
 {
 public:
-  EnemySnake(Food const &food);
-  void FindFood(Food const &food);
+  EnemySnake(SDL_Point const &food);
+  void FindFood(SDL_Point const &food);
 
 private:
-  void UpdateBody(SDL_Point &current_cell, SDL_Point &prev_cell);
+  void UpdateBody(SDL_Point &current_cell, SDL_Point &prev_cell) override;
 };
 
 #endif

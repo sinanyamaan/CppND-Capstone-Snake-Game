@@ -99,7 +99,7 @@ bool Snake::SnakeCell(int x, int y)
   return false;
 }
 
-EnemySnake::EnemySnake(Food const &food)
+EnemySnake::EnemySnake(SDL_Point const &food)
 {
   int x_diff = grid_width - food.x;
   int y_diff = grid_height - food.y;
@@ -118,7 +118,7 @@ EnemySnake::EnemySnake(Food const &food)
   }
 }
 
-void EnemySnake::FindFood(Food const &food)
+void EnemySnake::FindFood(SDL_Point const &food)
 {
   if ((int)head_x == food.x && (direction == Direction::kLeft || direction == Direction::kRight))
   {

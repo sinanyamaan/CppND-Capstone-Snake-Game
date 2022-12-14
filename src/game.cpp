@@ -6,8 +6,7 @@ Game::Game(std::size_t grid_width, std::size_t grid_height)
     : snake(std::make_unique<Snake>(grid_width, grid_height)),
       engine(dev()),
       random_w(0, static_cast<int>(grid_width - 1)),
-      random_h(0, static_cast<int>(grid_height - 1)),
-      random_f(1, 11)
+      random_h(0, static_cast<int>(grid_height - 1))
 {
   PlaceFood();
   enemy = std::make_unique<EnemySnake>(food);
@@ -59,12 +58,6 @@ void Game::Run(Controller const &controller, Renderer &renderer,
 
 void Game::PlaceFood()
 {
-  std::lock_guard<std::mutex> lock(mtx);
-
-  int f = random_f(engine);
-  // food = f == 1 ? std::unique_ptr<Food>(new GoldenFruit) : std::unique_ptr<Food>(new Food);
-  food = GoldenFruit();
-
   int x, y;
   while (true)
   {
